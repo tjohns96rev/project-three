@@ -1,0 +1,103 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: planetarium-prometheus-rules
+  labels:
+    release: prometheus
+spec:
+  groups:
+  - name: SLOs-http_server_requests_seconds
+    rules:
+    - alert: ErrorBudgetBurn
+      annotations:
+        message: 'High error budget burn for job=planetarium-clusterip (current value: {{ $value }})'
+      expr: |
+        sum(http_server_requests_seconds:burnrate5m{job="planetarium-clusterip"}) > (14.40 * (1-0.99900))
+        and
+        sum(http_server_requests_seconds:burnrate1h{job="planetarium-clusterip"}) > (14.40 * (1-0.99900))
+      for: 2m
+      labels:
+        job: planetarium-clusterip
+        severity: critical
+    - alert: ErrorBudgetBurn
+      annotations:
+        message: 'High error budget burn for job=planetarium-clusterip (current value: {{ $value }})'
+      expr: |
+        sum(http_server_requests_seconds:burnrate30m{job="planetarium-clusterip"}) > (6.00 * (1-0.99900))
+        and
+        sum(http_server_requests_seconds:burnrate6h{job="planetarium-clusterip"}) > (6.00 * (1-0.99900))
+      for: 15m
+      labels:
+        job: planetarium-clusterip
+        severity: critical
+    - alert: ErrorBudgetBurn
+      annotations:
+        message: 'High error budget burn for job=planetarium-clusterip (current value: {{ $value }})'
+      expr: |
+        sum(http_server_requests_seconds:burnrate2h{job="planetarium-clusterip"}) > (3.00 * (1-0.99900))
+        and
+        sum(http_server_requests_seconds:burnrate1d{job="planetarium-clusterip"}) > (3.00 * (1-0.99900))
+      for: 1h
+      labels:
+        job: planetarium-clusterip
+        severity: warning
+    - alert: ErrorBudgetBurn
+      annotations:
+        message: 'High error budget burn for job=planetarium-clusterip (current value: {{ $value }})'
+      expr: |
+        sum(http_server_requests_seconds:burnrate6h{job="planetarium-clusterip"}) > (1.00 * (1-0.99900))
+        and
+        sum(http_server_requests_seconds:burnrate3d{job="planetarium-clusterip"}) > (1.00 * (1-0.99900))
+      for: 3h
+      labels:
+        job: planetarium-clusterip
+        severity: warning
+    - expr: |
+        sum(rate(http_server_requests_seconds{job="planetarium-clusterip",status=~"5.."}[1d]))
+        /
+        sum(rate(http_server_requests_seconds{job="planetarium-clusterip"}[1d]))
+      labels:
+        job: planetarium-clusterip
+      record: http_server_requests_seconds:burnrate1d
+    - expr: |
+        sum(rate(http_server_requests_seconds{job="planetarium-clusterip",status=~"5.."}[1h]))
+        /
+        sum(rate(http_server_requests_seconds{job="planetarium-clusterip"}[1h]))
+      labels:
+        job: planetarium-clusterip
+      record: http_server_requests_seconds:burnrate1h
+    - expr: |
+        sum(rate(http_server_requests_seconds{job="planetarium-clusterip",status=~"5.."}[2h]))
+        /
+        sum(rate(http_server_requests_seconds{job="planetarium-clusterip"}[2h]))
+      labels:
+        job: planetarium-clusterip
+      record: http_server_requests_seconds:burnrate2h
+    - expr: |
+        sum(rate(http_server_requests_seconds{job="planetarium-clusterip",status=~"5.."}[30m]))
+        /
+        sum(rate(http_server_requests_seconds{job="planetarium-clusterip"}[30m]))
+      labels:
+        job: planetarium-clusterip
+      record: http_server_requests_seconds:burnrate30m
+    - expr: |
+        sum(rate(http_server_requests_seconds{job="planetarium-clusterip",status=~"5.."}[3d]))
+        /
+        sum(rate(http_server_requests_seconds{job="planetarium-clusterip"}[3d]))
+      labels:
+        job: planetarium-clusterip
+      record: http_server_requests_seconds:burnrate3d
+    - expr: |
+        sum(rate(http_server_requests_seconds{job="planetarium-clusterip",status=~"5.."}[5m]))
+        /
+        sum(rate(http_server_requests_seconds{job="planetarium-clusterip"}[5m]))
+      labels:
+        job: planetarium-clusterip
+      record: http_server_requests_seconds:burnrate5m
+    - expr: |
+        sum(rate(http_server_requests_seconds{job="planetarium-clusterip",status=~"5.."}[6h]))
+        /
+        sum(rate(http_server_requests_seconds{job="planetarium-clusterip"}[6h]))
+      labels:
+        job: planetarium-clusterip
+      record: http_server_requests_seconds:burnrate6h
