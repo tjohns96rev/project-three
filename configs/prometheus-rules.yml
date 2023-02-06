@@ -37,7 +37,7 @@ spec:
         sum(http_server_requests_seconds:burnrate2h{job="planetarium-clusterip"}) > (3.00 * (1-0.99900))
         and
         sum(http_server_requests_seconds:burnrate1d{job="planetarium-clusterip"}) > (3.00 * (1-0.99900))
-      for: 1h
+      for: 30m
       labels:
         job: planetarium-clusterip
         severity: warning
@@ -48,7 +48,7 @@ spec:
         sum(http_server_requests_seconds:burnrate6h{job="planetarium-clusterip"}) > (1.00 * (1-0.99900))
         and
         sum(http_server_requests_seconds:burnrate3d{job="planetarium-clusterip"}) > (1.00 * (1-0.99900))
-      for: 3h
+      for: 2h
       labels:
         job: planetarium-clusterip
         severity: warning
