@@ -101,3 +101,59 @@ spec:
       labels:
         job: planetarium-clusterip
       record: http_server_requests_seconds_count:burnrate6h
+  - name: planetarium #alert name
+    rules:
+
+    - alert: AppDown
+      expr: up == 0 # expression
+      for: 5m #pending period of 5 minute  basic wait 5 min before alert you. if you fix it before 5 min it wont alert you
+      labels:
+        severity: warn
+      annotations:
+        summary: "App planetarium is down"
+        description: "Prometheus has detected the application is not running for 5 minutes"
+
+    - alert: AppDownTooLong
+      expr: up == 0
+      for: 10m #pending period of 5 minute  basic wait 5 min before alert you. if you fix it before 5 min it wont alert you
+      labels:
+        severity: critical
+      annotations:
+        summary: "planetarium not running"
+        description: "Prometheus has detected the application is not running for 10 minutes"
+
+    - alert: APIHighLatency:5min
+      expr: sum(rate(http_server_requests_seconds_sum{job="planetarium-clusterip"}[5m])) / sum(rate(http_server_requests_seconds_count{job="planetarium-clusterip"}[5m])) > 0.2
+      #for:
+      labels:
+        severity: warn
+      annotations:
+        summary: "5 min latency too high"
+        description: "planetarium application is taking too long to handle requests in a 5 minute range"
+
+    - alert: APIHighLatency:15min
+      expr: sum(rate(http_server_requests_seconds_sum{job="planetarium-clusterip"}[15m])) / sum(rate(http_server_requests_seconds_count{job="planetarium-clusterip"}[15m])) > 0.2
+      #for:
+      labels:
+        severity: warn
+      annotations:
+        summary: "15 min latency too high"
+        description: "planetarium application is taking too long to handle requests in a 15 minute range"
+
+    - alert: APIHighLatency:30min
+      expr: sum(rate(http_server_requests_seconds_sum{job="planetarium-clusterip"}[30m])) / sum(rate(http_server_requests_seconds_count{job="planetarium-clusterip"}[30m])) > 0.2
+      #for:
+      labels:
+        severity: warn
+      annotations:
+        summary: "30 min latency too high"
+        description: "planetarium application is taking too long to handle requests in a 30 minute range"
+
+    - alert: APIHighLatency:1hour
+      expr: sum(rate(http_server_requests_seconds_sum{job="planetarium-clusterip"}[1h])) / sum(rate(http_server_requests_seconds_count{job="planetarium-clusterip"}[1h])) > 0.2
+      #for:
+      labels:
+        severity: warn
+      annotations:
+        summary: "1 hour latency too high"
+        description: "planetarium application is taking too long to handle requests in a 1 hour range" 
