@@ -100,7 +100,7 @@ spec:
         sum(rate(http_server_requests_seconds_count{job="planetarium-clusterip"}[6h]))
       labels:
         job: planetarium-clusterip
-      record: http_server_requests_seconds_count:burnrate6h
+        record: http_server_requests_seconds:burnrate6h
   - name: planetarium #alert name
     rules:
 
