@@ -5,6 +5,8 @@ metadata:
   namespace: "default"
   labels:
     app: "planetarium"
+  annotations:    
+    keel.sh/policy: force
 spec: # this is where we create the replicaset specs
   replicas: 2 #We can change if we need to show multiple cluster/pod ids
   selector:
