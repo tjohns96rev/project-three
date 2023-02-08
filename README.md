@@ -1,4 +1,5 @@
 # TODO
+Change
 - adjust application.properties to exclude sensitive info **DONE**
 - create dockerfile **DONE**
 - create image **DONE**

@@ -20,6 +20,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: blue-planetarium-clusterip # notice I am targetting the name, not a label
+                name: green-planetarium-clusterip # notice I am targetting the name, not a label
                 port:
                   number: 80 # standard http port

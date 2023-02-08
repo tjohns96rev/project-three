@@ -18,7 +18,7 @@ spec: # this is where we create the replicaset specs
       # terminationGracePeriodSeconds: 30
       containers:
         - name: "planetarium-app"
-          image: "esuminski/p3planetarium:1"
+          image: "tjohns96rev/project-three:10"
           env:
             - name: SPRING_DATASOURCE_URL
               valueFrom:
