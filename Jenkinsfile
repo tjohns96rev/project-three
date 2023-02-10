@@ -46,7 +46,7 @@ pipeline{ // the entire Jenkins Job needs to go inside the pipeline section
                     serverUrl: 'http://a4254fba4b9964a3e959069b36824855-240731871.us-east-1.elb.amazonaws.com/') {
                         // sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'  
                         // sh 'chmod u+x ./kubectl'  
-                        sh '/usr/local/bin/kubectl apply -f blue-planetarium-deployment.yml'
+                        sh '/home/jenkins/agent/workspace/Planetarium@tmp/durable-8c2266a2/kubectl apply -f blue-planetarium-deployment.yml'
                     }
                 }
             }
