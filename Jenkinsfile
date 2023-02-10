@@ -41,10 +41,12 @@ pipeline{ // the entire Jenkins Job needs to go inside the pipeline section
         }
         stage ("Re-Deploy Pod Image"){
             steps{
-                withKubeConfig(caCertificate: '', clusterName: '', contextName: '', 
-                credentialsId: 'docker-creds', namespace: '', restrictKubeConfigAccess: false, 
-                serverUrl: 'http://a4254fba4b9964a3e959069b36824855-240731871.us-east-1.elb.amazonaws.com/') {
-                    sh 'kubectl apply -f blue-planetarium-deployment.yml'
+                script{
+                    withKubeConfig(caCertificate: '', clusterName: '', contextName: '', 
+                    credentialsId: 'docker-creds', namespace: '', restrictKubeConfigAccess: false, 
+                    serverUrl: 'http://a4254fba4b9964a3e959069b36824855-240731871.us-east-1.elb.amazonaws.com/') {
+                        sh 'kubectl apply -f blue-planetarium-deployment.yml'
+                    }
                 }
             }
         }
