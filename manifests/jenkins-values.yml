@@ -10,6 +10,8 @@ controller:
   - pipeline-stage-view
   - timestamper
   - github
+  - kubernetes-cli
+  
   jenkinsUriPrefix: "/jenkins"
   ingress: # This tells Kubernetes to create an ingress object that gives us access to jenkins
     enabled: true
