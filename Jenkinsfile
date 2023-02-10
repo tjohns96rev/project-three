@@ -16,21 +16,6 @@ pipeline{ // the entire Jenkins Job needs to go inside the pipeline section
         DEVOPS_REGISTRY='tjohns96rev/project-three'
         DEVOPS_IMAGE=''
     }
-    node{
-        stage ("Re-Deploy Pod Image"){
-            steps{
-                script{
-                    withKubeConfig(caCertificate: '', clusterName: '', contextName: '', 
-                    credentialsId: 'docker-creds', namespace: '', restrictKubeConfigAccess: false, 
-                    serverUrl: 'http://a4254fba4b9964a3e959069b36824855-240731871.us-east-1.elb.amazonaws.com/') {
-                        sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'  
-                        sh 'chmod u+x ./kubectl'  
-                        sh './kubectl apply -f blue-planetarium-deployment.yml'
-                    }
-                }
-            }
-        }
-    }
     stages{
         // this is where the steps of the job will be defined
 
@@ -49,6 +34,19 @@ pipeline{ // the entire Jenkins Job needs to go inside the pipeline section
                             DEVOPS_IMAGE.push("latest")
                             DEVOPS_IMAGE.push("$BUILD_NUMBER")
                         } //docker-creds is the credentical id when you created yours not the same one
+                    }
+                }
+            }
+        }
+        stage ("Re-Deploy Pod Image"){
+            steps{
+                script{
+                    withKubeConfig(caCertificate: '', clusterName: '', contextName: '', 
+                    credentialsId: 'docker-creds', namespace: '', restrictKubeConfigAccess: false, 
+                    serverUrl: 'http://a4254fba4b9964a3e959069b36824855-240731871.us-east-1.elb.amazonaws.com/') {
+                        sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'  
+                        sh 'chmod u+x ./kubectl'  
+                        sh './kubectl apply -f blue-planetarium-deployment.yml'
                     }
                 }
             }
