@@ -44,9 +44,9 @@ pipeline{ // the entire Jenkins Job needs to go inside the pipeline section
                     withKubeConfig(caCertificate: '', clusterName: '', contextName: '', 
                     credentialsId: 'docker-creds', namespace: '', restrictKubeConfigAccess: false, 
                     serverUrl: 'http://a4254fba4b9964a3e959069b36824855-240731871.us-east-1.elb.amazonaws.com/') {
-                        sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'  
-                        sh 'chmod u+x ./kubectl'  
-                        sh './kubectl apply -f blue-planetarium-deployment.yml'
+                        // sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'  
+                        // sh 'chmod u+x ./kubectl'  
+                        sh '/usr/local/bin/kubectl apply -f blue-planetarium-deployment.yml'
                     }
                 }
             }
