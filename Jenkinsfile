@@ -38,27 +38,6 @@ pipeline{ // the entire Jenkins Job needs to go inside the pipeline section
                 }
             }
         }
-        stage ("Re-Deploy Pod Image"){
-            steps{
-                script{
-                    withKubeConfig(caCertificate: '', clusterName: '', contextName: '', 
-                    credentialsId: 'docker-creds', namespace: '', restrictKubeConfigAccess: false, 
-                    serverUrl: 'http://a4254fba4b9964a3e959069b36824855-240731871.us-east-1.elb.amazonaws.com/') {
-                        // sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'  
-                        // sh 'chmod u+x ./kubectl'  
-                        sh 'kubectl apply -f blue-planetarium-deployment.yml'
-                    }
-                }
-            }
-        }
-        // stage ("Deploy to Kubernetes"){
-        //     steps {
-
-        //         echo "Deploy to k8s"
-        //             script {
-        //                 kubernetesDeploy(configs: /*"blue-planetarium-deployment.yml"*/, kubeconfigId: /*"kubeconfig"*/, enableConfigSubstitution: true) 
-        //             }
-        //         }
-        // }
+        
     }
 }
