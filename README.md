@@ -16,5 +16,5 @@
     - postgres
 - SPRING_DATASOURCE_PASSWORD
     - L0c@1
-    - 
-### Team Rocke
+    
+### Team Rocket
